@@ -2,20 +2,30 @@ package calendar;
 
 public class Join {
 	private String myName;
+	private String myId;
 	private String myPassword;
 	
 	 
 
-	public Join(String myName, String myPassword) {
+	public Join(String myName, String myId, String myPassword) {
 		this.myName = myName;
+		this.myId = myId;
 		this.myPassword = myPassword;
 		
 	}
 	
-	public void setmyName(String myName) {
+	public void setMyId(String myId) {
+		this.myId = myId;
+	}
+	public String getMyId() {
+		return myId;
+	}
+	
+	public void setMyName(String myName) {
 		this.myName = myName;
 	}
-	public String getmyName() {
+	
+	public String getMyName() {
 		return myName;
 	}
 	
@@ -27,7 +37,7 @@ public class Join {
 	}
 	
 	public String toString() {
-		return "아이디 : " + this.myName + "\n"+"비밀번호 : " +this.myPassword;
+		return "이름 : "+this.myName +"\n" +"아이디 : " + this.myId + "\n"+"비밀번호 : " +this.myPassword;
 	}
 
 }

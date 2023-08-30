@@ -17,7 +17,7 @@ public class JoinController {
 		while(true) {
 			System.out.println("안녕하세요 관리자님! 관리자 메뉴를 선택해주세요.");
 			System.out.println("====================================");
-			System.out.println("1. 회원 관리");
+			System.out.println("1. 회원 목록");
 			System.out.println("2. 회원 삭제");
 			System.out.println("0. 뒤로 가기");
 			System.out.println("====================================");
@@ -29,7 +29,7 @@ public class JoinController {
 				}break;
 				case 2 :{
 					clientDelete();
-				}	
+				}break;	
 				case 0 :{
 					return;
 				}
@@ -48,13 +48,20 @@ public class JoinController {
 		}
 		
 		while(true) {
-			System.out.println("사용할 아이디를 입력해주세요 : ");
+			System.out.println("이름을 입력해주세요 : ");
 			String myName = sc.next();
+			System.out.println("사용할 아이디를 입력해주세요 : ");
+			String myId = sc.next();
 			
 			boolean isDuplicate = false;
 			
 			for(int i = 0; i < count; i++) {
-				if(myName.equals(cj[i].getmyName())) {
+				int num = 0;
+				if(cj[num] == null) {
+					System.out.println("등록된 회원이 없습니다.");
+					return;
+				}
+				if(myId.equals(cj[i].getMyId())) {
 					System.out.println("중복되어서 사용할 수 없는 아이디입니다.");
 					isDuplicate = true;
 					break;
@@ -65,7 +72,7 @@ public class JoinController {
 				System.out.println("사용할 비밀번호를 입력해주세요 : ");
 				String myPassword = sc.next();
 				
-				Join newJoin = new Join(myName, myPassword);
+				Join newJoin = new Join(myName, myId, myPassword);
 				cj[count++] = newJoin;
 				
 				System.out.println(myName +"님, 회원가입이 완료되었습니다.");
@@ -80,7 +87,7 @@ public class JoinController {
 		System.out.println("아이디 : ");
 		String clientId = sc.next();
 		for(int i = 0 ; i < cj.length; i++) {
-			if(cj[i].getmyName().equals(clientId) ) {
+			if(cj[i].getMyId().equals(clientId) ) {
 				cj[i] = null;
 				break;
 			}
@@ -103,12 +110,17 @@ public class JoinController {
 	
 	public Join[] delete() {
 		System.out.println("삭제하실 아이디를 입력해주세요");
-		String myName = sc.next();
+		String myId = sc.next();
 		System.out.println("삭제하실 비밀번호를 입력해주세요");
 		String myPassword = sc.next();
+		int num =0;
 		for(int i = 0 ; i < cj.length; i++) {
-			if(cj[i].getmyName().equals(myName) && cj[i].getmyPassword().equals(myPassword) ) {
-				System.out.println(cj[i].getmyName()+"의 삭제가 완료됐습니다.");
+			if(cj[num] == null) {
+				System.out.println("삭제할 회원이 없습니다.");
+				break;
+			}
+			if(cj[i].getMyId().equals(myId) && cj[i].getmyPassword().equals(myPassword) ) {
+				System.out.println(cj[i].getMyId()+"의 삭제가 완료됐습니다.");
 				cj[i] = null;
 				break;
 			}
@@ -137,7 +149,7 @@ public class JoinController {
 			String clientPassword = sc.next();	
 			
 			for(int i = 0 ; i < cj.length; i++) {
-				if(cj[i].getmyName().equals(clientName) && cj[i].getmyPassword().equals(clientPassword)) {
+				if(cj[i].getMyId().equals(clientName) && cj[i].getmyPassword().equals(clientPassword)) {
 					System.out.println("로그인 성공!");
 					return;
 				} else {
@@ -159,7 +171,7 @@ public class JoinController {
 			if(cj[i] ==null) {				
 				break;
 			}
-			System.out.println(cj[i].toString());
+			System.out.println("["+(i+1) +"]" + cj[i].toString()+"\n---------------------");
 		}	
 	}		
 }
